@@ -16,7 +16,7 @@ export const newSlice = createSlice({
         builder.addCase(createUser.fulfilled, (state, action) => {
             state.isLoading = false
             state.data = action.payload
-            console.log("update ------>", action.payload);
+            console.log("new employee ------>", action.payload);
 
             
         });
