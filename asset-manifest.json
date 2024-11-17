@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/fortmindz/static/css/main.fe2b4063.css",
-    "main.js": "/fortmindz/static/js/main.e441c330.js",
+    "main.js": "/fortmindz/static/js/main.b4da7868.js",
     "static/js/453.8ab44547.chunk.js": "/fortmindz/static/js/453.8ab44547.chunk.js",
     "index.html": "/fortmindz/index.html",
     "main.fe2b4063.css.map": "/fortmindz/static/css/main.fe2b4063.css.map",
-    "main.e441c330.js.map": "/fortmindz/static/js/main.e441c330.js.map",
+    "main.b4da7868.js.map": "/fortmindz/static/js/main.b4da7868.js.map",
     "453.8ab44547.chunk.js.map": "/fortmindz/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fe2b4063.css",
-    "static/js/main.e441c330.js"
+    "static/js/main.b4da7868.js"
   ]
 }
