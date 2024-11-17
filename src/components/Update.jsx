@@ -5,58 +5,55 @@ import { fetchDetails } from '../slice/detailSlice';
 import { fetchUpdate } from '../slice/updateSlice';
 import { fetchUser } from '../slice/userSlice';
 import { MdEdit } from "react-icons/md";
+
 const Update = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const userDetail = useSelector((state) => state.details);
 
-  useEffect(() => {
-
-    dispatch(fetchDetails(id));
-
-  }, [id, dispatch, userDetail.data]);
-
-  const { fullName, email, phone, age, salary, image } = userDetail?.data?.data || {};
-
-  const [uname, setUname] = useState(fullName || '');
-  const [uemail, setUemail] = useState(email || '');
-  const [uphone, setPhone] = useState(phone || '');
-  const [uage, setUage] = useState(age || '');
-  const [usalary, setUsalary] = useState(salary || '');
-  const [uimage, setUimage] = useState(image || '');
-
+  const [uname, setUname] = useState('');
+  const [uemail, setUemail] = useState('');
+  const [uphone, setPhone] = useState('');
+  const [uage, setUage] = useState('');
+  const [usalary, setUsalary] = useState('');
+  const [uimage, setUimage] = useState('');
 
   const [initialValues, setInitialValues] = useState({
-    uname: fullName || '',
-    uemail: email || '',
-    uphone: phone || '',
-    uage: age || '',
-    usalary: salary || '',
-    uimage: image || '',
-
+    uname: '',
+    uemail: '',
+    uphone: '',
+    uage: '',
+    usalary: '',
+    uimage: '',
   });
 
   useEffect(() => {
+    dispatch(fetchDetails(id));
+  }, [id, dispatch]);
+
+  useEffect(() => {
     if (userDetail?.data?.data) {
-      setUname(fullName);
-      setUemail(email);
-      setPhone(phone);
-      setUage(age);
-      setUsalary(salary);
-      setUimage(image);
-
-      // Set the initial values
+      const { fullName, email, phone, age, salary, image } = userDetail?.data?.data;
+      
+      // Set initial values when the data is available
       setInitialValues({
-        uname: fullName,
-        uemail: email,
-        uphone: phone,
-        uage: age,
-        usalary: salary,
-        uimage: image
+        uname: fullName || '',
+        uemail: email || '',
+        uphone: phone || '',
+        uage: age || '',
+        usalary: salary || '',
+        uimage: image || '',
       });
-    }
-  }, [userDetail?.data?.data,fullName, email, phone, age, salary, image]);
 
+      // Set form field values
+      setUname(fullName || '');
+      setUemail(email || '');
+      setPhone(phone || '');
+      setUage(age || '');
+      setUsalary(salary || '');
+      setUimage(image || '');
+    }
+  }, [userDetail?.data?.data]);
 
   if (!userDetail?.data) {
     return <div className='text-xl text-center'>Loading...</div>;
@@ -85,14 +82,14 @@ const Update = () => {
       phone: uphone,
       age: uage,
       salary: usalary,
-      image: image,
+      image: uimage,
       id: id
     };
     console.log("formData------>", formData);
     dispatch(fetchUpdate(formData));
     dispatch(fetchUser());
-    window.location.reload();
-    alert("Your profile updated successfully.")
+    
+    alert("Your profile updated successfully.");
   }
 
   return (
@@ -103,8 +100,7 @@ const Update = () => {
       </div>
       <div className="shadow-xl bg-slate-100 h-fit sm:w-[80%] md:w-[50%] w-full p-5 m-auto mt-5">
         <div className="m-auto w-56">
-          <img src={image} alt="User profile" className="object-cover object-top" />
-
+          <img src={uimage} alt="User profile" className="object-cover object-top" />
         </div>
 
         <form action="" className="shadow-md mt-10 sm:w-[70%] w-full m-auto p-3" onSubmit={handleSubmit}>
@@ -149,7 +145,7 @@ const Update = () => {
             type="text"
             value={uimage}
             className="rounded px-3 py-1 w-full mt-2"
-            onChange={(e) => handleInputChange(e, setUsalary)}
+            onChange={(e) => handleInputChange(e, setUimage)}
           />
 
           <div className="flex gap-5 mt-5 justify-end">
@@ -158,11 +154,9 @@ const Update = () => {
               className={`${isFormChanged() ? 'bg-blue-500' : 'bg-slate-500'
                 } rounded px-2 py-1`}
               disabled={!isFormChanged()}
-
             >
               Save
             </button>
-
           </div>
         </form>
       </div>
